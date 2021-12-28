@@ -20,7 +20,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image = models.ImageField(upload_to=user_directory_path,default="django.jpg")
+    image = models.ImageField(upload_to=user_directory_path,default="django.jpeg")
     category = models.ForeignKey(Category,on_delete=models.PROTECT)
     published_date = models.DateField(auto_now_add=True)
     last_updated = models.DateField(auto_now=True)
@@ -30,6 +30,14 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def comment_count(self):
+        return self.comment_set.all().count()
+    def view_count(self):
+        return self.postview_set.all().count()
+    def like_count(self):
+        return self.like_set.all().count()
+    
     
 class Comment(models.Model):
       user = models.ForeignKey(User, on_delete=models.CASCADE)
