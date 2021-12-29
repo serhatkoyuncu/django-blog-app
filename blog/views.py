@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from blog.forms import CommentForm, PostForm
-from blog.models import Like, Post
+from blog.models import Like, Post, PostView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -35,6 +35,8 @@ def post_create(request):
 def post_detail(request,slug):
     form = CommentForm(request.POST)
     obj = get_object_or_404(Post,slug=slug)
+    if request.user.is_authenticated:
+        PostView.objects.get_or_create(user=request.user,post=obj)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
