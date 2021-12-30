@@ -12,7 +12,7 @@ def register(request):
         form.save()
         name=form.cleaned_data["username"]
         messages.success(request,f"Account created for {name}")
-        return redirect("users:login")
+        return redirect("login")
     context = {
         "form": form,
     }
