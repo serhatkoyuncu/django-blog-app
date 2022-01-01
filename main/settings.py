@@ -14,6 +14,9 @@ from pathlib import Path
 from decouple import config
 import os
 import django_heroku
+# import dj_database_url 
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +31,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-blog-case.herokuapp.com","localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["django-blog-case.herokuapp.com"]
 
 
 # Application definition
@@ -126,12 +129,26 @@ USE_TZ = True
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# # # Extra places for collectstatic to find static files.
+# STATIC_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# # Extra places for collectstatic to find static files.
-STATIC_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
 )
+
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # STATICFILES_DIRS = [BASE_DIR / 'static']
