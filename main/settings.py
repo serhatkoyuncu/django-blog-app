@@ -131,9 +131,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # # # Extra places for collectstatic to find static files.
-# STATIC_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATIC_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -154,10 +154,10 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media_root'
 MEDIA_URL = '/media_root/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
-# MEDIAFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'media'),
-# )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIAFILES_DIRS = (
+    os.path.join(BASE_DIR, 'media_root'),
+)
 
 
 # Default primary key field type
