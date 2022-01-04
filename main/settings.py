@@ -14,7 +14,7 @@ from pathlib import Path
 from decouple import config
 import os
 import django_heroku
-import dj_database_url 
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,14 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #myapps
+    # myapps
     "blog.apps.BlogConfig",
     "users.apps.UsersConfig",
-    #third party
+    # third party
     'crispy_forms',
+    # heroku
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
+    # This is the default Django Security Middleware
+    'django.middleware.security.SecurityMiddleware',
+
+    # Add whitenoise middleware here
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -154,10 +160,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media_root'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'mediafiles'
-MEDIAFILES_DIRS = (
-    os.path.join(BASE_DIR, 'media_root'),
-)
+MEDIA_ROOT = BASE_DIR / 'media_root'
 
 
 # Default primary key field type
@@ -168,8 +171,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
