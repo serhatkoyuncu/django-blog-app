@@ -47,16 +47,16 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # third party
     'crispy_forms',
-    # # heroku
-    # 'whitenoise.runserver_nostatic',
+    # heroku
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
-    # # This is the default Django Security Middleware
-    # 'django.middleware.security.SecurityMiddleware',
+    # This is the default Django Security Middleware
+    'django.middleware.security.SecurityMiddleware',
 
-    # # Add whitenoise middleware here
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    # Add whitenoise middleware here
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,9 +153,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 #     os.path.join(PROJECT_ROOT, 'static'),
 # )
 
-# #  Add configuration for static files storage using whitenoise
-
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -177,8 +176,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
 
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
