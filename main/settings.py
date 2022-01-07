@@ -14,7 +14,7 @@ from pathlib import Path
 from decouple import config
 import os
 import django_heroku
-import dj_database_url
+# import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,7 +30,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,15 +47,9 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # third party
     'crispy_forms',
-    # heroku
-    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
-    # This is the default Django Security Middleware
-    'django.middleware.security.SecurityMiddleware',
-
-    # Add whitenoise middleware here
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -169,7 +163,6 @@ STATIC_DIRS = (
 # )
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -194,8 +187,8 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -210,4 +203,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 django_heroku.settings(locals())
+
+DEBUG_COLLECTSTATIC=1
