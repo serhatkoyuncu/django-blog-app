@@ -134,8 +134,23 @@ USE_TZ = True
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media_root"
+# STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR / 'static')
+STATIC_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
+
+
+
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
@@ -160,8 +175,12 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_DIRS = [BASE_DIR / 'static']
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media_root'
-MEDIA_URL = '/media/'
-MEDIA_ROOT ='/media_root/'
+
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT ='/media_root/'
+
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 # # Extra places for collectstatic to find static files.
 # MEDIAFILES_DIRS = (
@@ -174,7 +193,6 @@ MEDIA_ROOT ='/media_root/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
@@ -191,3 +209,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
+
+django_heroku.settings(locals())
